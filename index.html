@@ -41,23 +41,46 @@
         </div>
       </section>
 
-      <div class="presets focus-hide" role="group" aria-label="Duración del bloque">
-        <button type="button" class="chip is-active" data-minutes="10">
-          10 min
-        </button>
-        <button type="button" class="chip" data-minutes="15">15 min</button>
-        <button type="button" class="chip" data-minutes="25">25 min</button>
-        <label class="chip chip-custom">
-          <input
-            id="custom-min"
-            type="text"
-            inputmode="numeric"
-            maxlength="2"
-            placeholder="—"
-            aria-label="Minutos personalizados"
-          />
-          min
-        </label>
+      <div class="presets presets-study focus-hide" role="group" aria-label="Duración del bloque">
+        <p class="presets-label">Bloque de estudio</p>
+        <div class="presets-row">
+          <button type="button" class="chip is-active" data-minutes="10">
+            10 min
+          </button>
+          <button type="button" class="chip" data-minutes="15">15 min</button>
+          <button type="button" class="chip" data-minutes="25">25 min</button>
+          <label class="chip chip-custom">
+            <input
+              id="custom-min"
+              type="text"
+              inputmode="numeric"
+              maxlength="2"
+              placeholder="—"
+              aria-label="Minutos de estudio personalizados"
+            />
+            min
+          </label>
+        </div>
+      </div>
+
+      <div class="presets presets-break focus-hide" role="group" aria-label="Duración del descanso">
+        <p class="presets-label">Descanso</p>
+        <div class="presets-row">
+          <button type="button" class="chip" data-break-minutes="3">3 min</button>
+          <button type="button" class="chip is-active" data-break-minutes="5">5 min</button>
+          <button type="button" class="chip" data-break-minutes="10">10 min</button>
+          <label class="chip chip-custom">
+            <input
+              id="custom-break-min"
+              type="text"
+              inputmode="numeric"
+              maxlength="2"
+              placeholder="—"
+              aria-label="Minutos de descanso personalizados"
+            />
+            min
+          </label>
+        </div>
       </div>
 
       <div class="actions">

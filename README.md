@@ -8,7 +8,7 @@ Aplicación web sencilla para estudiar en bloques cortos. Está pensada para per
 - Campo para escribir **qué vas a hacer** en ese bloque.
 - **Modo foco**: oculta el resto de la interfaz y deja solo el reloj y los controles esenciales.
 - **Avisos persistentes** al terminar un bloque o un descanso: no desaparecen solos; hay que confirmarlos.
-- **Descanso automático** de 5 minutos después de cada bloque completado.
+- **Descanso automático** después de cada bloque (por defecto 5 minutos; configurable: 3, 10 o personalizado).
 - **Estadísticas del día**: bloques completados y minutos acumulados (se guardan en el navegador).
 - Aviso si cambias de pestaña mientras el temporizador está en marcha.
 

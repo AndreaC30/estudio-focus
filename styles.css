@@ -146,10 +146,19 @@ body {
 }
 
 .presets {
+  margin-bottom: 1rem;
+}
+
+.presets-label {
+  margin: 0 0 0.45rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.presets-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1rem;
 }
 
 .chip {
@@ -300,7 +309,12 @@ body {
   }
 }
 
-body.is-running .chip:not(.chip-custom) {
+body.is-running .presets-study .chip:not(.chip-custom) {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+body.is-break .presets-break .chip:not(.chip-custom) {
   opacity: 0.55;
   pointer-events: none;
 }

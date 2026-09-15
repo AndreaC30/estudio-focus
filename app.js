@@ -1,5 +1,6 @@
 const CIRCUMFERENCE = 2 * Math.PI * 54;
 const STORAGE_KEY = "foco-stats-v1";
+const SETTINGS_KEY = "foco-settings-v1";
 
 const els = {
   time: document.getElementById("time"),
@@ -11,8 +12,10 @@ const els = {
   focus: document.getElementById("focus"),
   intention: document.getElementById("intention"),
   taskPreview: document.getElementById("task-preview"),
-  chips: document.querySelectorAll(".chip[data-minutes]"),
+  chips: document.querySelectorAll(".presets-study .chip[data-minutes]"),
   customMin: document.getElementById("custom-min"),
+  breakChips: document.querySelectorAll(".presets-break .chip[data-break-minutes]"),
+  customBreakMin: document.getElementById("custom-break-min"),
   hint: document.getElementById("hint"),
   alert: document.getElementById("alert"),
   alertKicker: document.getElementById("alert-kicker"),
@@ -32,7 +35,39 @@ const state = {
   alarmId: 0,
   titlePulseId: 0,
   focus: false,
+  breakMinutes: 5,
 };
+
+function loadSettings() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
+    if (Number.isFinite(raw.breakMinutes) && raw.breakMinutes > 0) {
+      state.breakMinutes = Math.min(30, Math.max(1, raw.breakMinutes));
+    }
+  } catch {
+    state.breakMinutes = 5;
+  }
+}
+
+function saveSettings() {
+  localStorage.setItem(
+    SETTINGS_KEY,
+    JSON.stringify({ breakMinutes: state.breakMinutes }),
+  );
+}
+
+function setBreakMinutes(minutes) {
+  if (state.mode === "break") return;
+  const safe = Math.min(30, Math.max(1, minutes));
+  state.breakMinutes = safe;
+  els.breakChips.forEach((chip) => {
+    chip.classList.toggle(
+      "is-active",
+      Number(chip.dataset.breakMinutes) === safe,
+    );
+  });
+  saveSettings();
+}
 
 function fsElement() {
   return (
@@ -143,6 +178,7 @@ function setPhase() {
   els.phase.textContent = labels[state.mode] || "Listo";
   els.card.classList.toggle("is-break", state.mode === "break");
   document.body.classList.toggle("is-running", state.mode === "running");
+  document.body.classList.toggle("is-break", state.mode === "break");
   els.toggle.textContent =
     state.mode === "running"
       ? "Pausar"
@@ -218,7 +254,7 @@ function completeBlock() {
   showAlert({
     kicker: "Bloque cumplido",
     title: "Toca parar un momento",
-    body: "El aviso se queda aquí hasta que pulses. El descanso de 5 minutos ya está corriendo.",
+    body: `El aviso se queda aquí hasta que pulses. El descanso de ${state.breakMinutes} minutos ya está corriendo.`,
     action: "Seguir con el descanso",
     urgent: true,
   });
@@ -226,7 +262,7 @@ function completeBlock() {
 
 function startBreak() {
   state.mode = "break";
-  state.totalMs = 5 * 60 * 1000;
+  state.totalMs = state.breakMinutes * 60 * 1000;
   state.remainingMs = state.totalMs;
   state.endsAt = Date.now() + state.remainingMs;
   els.hint.textContent = "Descansa la vista. No abras otra pestaña «solo un segundo».";
@@ -285,7 +321,7 @@ function reset() {
   window.clearInterval(state.tickId);
   hideAlert();
   state.mode = "idle";
-  const active = document.querySelector(".chip.is-active");
+  const active = document.querySelector(".presets-study .chip.is-active");
   const minutes = active ? Number(active.dataset.minutes) : 10;
   setMinutes(minutes);
   els.taskPreview.textContent = "";
@@ -311,6 +347,17 @@ els.chips.forEach((chip) => {
 els.customMin.addEventListener("change", () => {
   const value = Number(els.customMin.value);
   if (Number.isFinite(value) && value > 0) setMinutes(value);
+});
+
+els.breakChips.forEach((chip) => {
+  chip.addEventListener("click", () =>
+    setBreakMinutes(Number(chip.dataset.breakMinutes)),
+  );
+});
+
+els.customBreakMin.addEventListener("change", () => {
+  const value = Number(els.customBreakMin.value);
+  if (Number.isFinite(value) && value > 0) setBreakMinutes(value);
 });
 
 els.intention.addEventListener("input", () => {
@@ -345,6 +392,8 @@ window.addEventListener("keydown", (event) => {
 });
 
 els.ring.style.strokeDasharray = String(CIRCUMFERENCE);
+loadSettings();
+setBreakMinutes(state.breakMinutes);
 renderStats();
 renderClock();
 setPhase();
