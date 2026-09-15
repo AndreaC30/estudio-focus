@@ -1,0 +1,337 @@
+:root {
+  --bg: #0e0c0a;
+  --bg-card: #1a1210;
+  --ink: #fff6ec;
+  --muted: #c9b5a8;
+  --accent: #660200;
+  --accent-light: #b84a42;
+  --accent-2: #c47878;
+  --line: #3d2e2a;
+  --danger: #e04a3a;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: radial-gradient(1200px 600px at 50% -10%, #1c0a08, var(--bg));
+  color: var(--ink);
+}
+
+body {
+  display: grid;
+  place-items: start center;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+.app {
+  width: min(440px, 100%);
+}
+
+.top h1 {
+  margin: 0.2rem 0 0.6rem;
+  font-size: 1.65rem;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+}
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  color: var(--accent-light);
+}
+
+.lede {
+  margin: 0 0 1.4rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.intention {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 1.4rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.intention input {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--bg-card);
+  color: var(--ink);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+}
+
+.intention input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.timer-card {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 1.25rem;
+  width: 260px;
+  height: 260px;
+}
+
+.ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.ring-track,
+.ring-progress {
+  fill: none;
+  stroke-width: 6;
+}
+
+.ring-track {
+  stroke: var(--line);
+}
+
+.ring-progress {
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-dasharray: 339.292;
+  stroke-dashoffset: 0;
+  filter: drop-shadow(0 0 10px rgba(102, 2, 0, 0.65));
+  transition: stroke 0.3s ease, filter 0.3s ease;
+}
+
+.timer-card.is-break .ring-progress {
+  stroke: var(--accent-2);
+  filter: drop-shadow(0 0 8px rgba(196, 120, 120, 0.45));
+}
+
+.clock {
+  text-align: center;
+  z-index: 1;
+}
+
+.phase {
+  margin: 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.time {
+  margin: 0.15rem 0;
+  font-variant-numeric: tabular-nums;
+  font-size: 3.4rem;
+  font-weight: 620;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.task {
+  margin: 0;
+  max-width: 170px;
+  color: var(--accent-light);
+  font-size: 0.85rem;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.chip {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.45rem 0.85rem;
+  cursor: pointer;
+  font: inherit;
+}
+
+.chip.is-active {
+  background: var(--accent);
+  color: var(--ink);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.chip-custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: default;
+}
+
+.chip-custom input {
+  width: 2.4rem;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: center;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.actions .primary {
+  grid-column: 1 / -1;
+}
+
+.btn {
+  border: 0;
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: linear-gradient(180deg, #7a1810 0%, var(--accent) 100%);
+  color: var(--ink);
+  box-shadow: 0 4px 18px rgba(102, 2, 0, 0.45);
+}
+
+.btn.ghost {
+  background: var(--bg-card);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+
+.hint {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.stats div {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+}
+
+.stats strong {
+  display: block;
+  font-size: 1.4rem;
+  color: var(--accent-light);
+}
+
+.stats span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.alert {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.35rem;
+  background: rgba(12, 10, 8, 0.94);
+  text-align: center;
+  padding: 1.5rem;
+  z-index: 10;
+}
+
+.alert.is-urgent {
+  animation: alert-pulse 1.6s ease-in-out infinite;
+}
+
+.alert-kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  color: var(--accent-light);
+}
+
+.alert-title {
+  font-size: 1.85rem;
+  margin: 0.2rem 0 0.4rem;
+  font-weight: 650;
+}
+
+.alert-body {
+  margin: 0 0 1.1rem;
+  color: var(--muted);
+  max-width: 22rem;
+  line-height: 1.45;
+}
+
+.alert[hidden] {
+  display: none;
+}
+
+@keyframes alert-pulse {
+  0%,
+  100% {
+    background: rgba(10, 8, 6, 0.95);
+  }
+  50% {
+    background: rgba(102, 2, 0, 0.55);
+  }
+}
+
+body.is-running .chip:not(.chip-custom) {
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+body.is-focus {
+  place-items: center;
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
+body.is-focus .focus-hide {
+  display: none;
+}
+
+body.is-focus .timer-card {
+  width: min(300px, 78vw);
+  height: min(300px, 78vw);
+  margin-bottom: 1.75rem;
+}
+
+body.is-focus .time {
+  font-size: 4.2rem;
+}
+
+body.is-focus .task {
+  max-width: 220px;
+  font-size: 1rem;
+}
+
+body.is-focus .actions {
+  grid-template-columns: 1fr;
+  width: min(280px, 100%);
+  margin: 0 auto;
+}

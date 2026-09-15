@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#660200" />
+    <title>Foco — temporizador de estudio</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="top focus-hide">
+        <p class="eyebrow">Estudio con foco</p>
+        <h1>Una cosa. Un bloque corto.</h1>
+        <p class="lede">
+          Si te distraes rápido, no hace falta una hora. Empieza por 10 minutos
+          y vuelve cuando suene.
+        </p>
+      </header>
+
+      <label class="intention focus-hide">
+        <span>Ahora mismo voy a…</span>
+        <input
+          id="intention"
+          type="text"
+          maxlength="80"
+          placeholder="leer el tema 3, hacer 5 ejercicios, resumir apuntes…"
+          autocomplete="off"
+        />
+      </label>
+
+      <section class="timer-card" aria-live="polite">
+        <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="ring-track" cx="60" cy="60" r="54" />
+          <circle class="ring-progress" id="ring" cx="60" cy="60" r="54" />
+        </svg>
+        <div class="clock">
+          <p class="phase" id="phase">Listo</p>
+          <p class="time" id="time">10:00</p>
+          <p class="task" id="task-preview"></p>
+        </div>
+      </section>
+
+      <div class="presets focus-hide" role="group" aria-label="Duración del bloque">
+        <button type="button" class="chip is-active" data-minutes="10">
+          10 min
+        </button>
+        <button type="button" class="chip" data-minutes="15">15 min</button>
+        <button type="button" class="chip" data-minutes="25">25 min</button>
+        <label class="chip chip-custom">
+          <input
+            id="custom-min"
+            type="text"
+            inputmode="numeric"
+            maxlength="2"
+            placeholder="—"
+            aria-label="Minutos personalizados"
+          />
+          min
+        </label>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn primary" id="toggle">Empezar</button>
+        <button type="button" class="btn ghost" id="reset">Reiniciar</button>
+        <button type="button" class="btn ghost" id="focus">Modo foco</button>
+      </div>
+
+      <p class="hint focus-hide" id="hint">
+        Espacio inicia o pausa. Modo foco oculta lo demás y deja solo el temporizador.
+      </p>
+
+      <aside class="stats focus-hide">
+        <div>
+          <strong id="today-count">0</strong>
+          <span>bloques hoy</span>
+        </div>
+        <div>
+          <strong id="today-min">0</strong>
+          <span>minutos hoy</span>
+        </div>
+      </aside>
+    </div>
+
+    <div class="alert" id="alert" hidden>
+      <p class="alert-kicker" id="alert-kicker"></p>
+      <p class="alert-title" id="alert-title"></p>
+      <p class="alert-body" id="alert-body"></p>
+      <button type="button" class="btn primary" id="alert-ok">Entendido</button>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
